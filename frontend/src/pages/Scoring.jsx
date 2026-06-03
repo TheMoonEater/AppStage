@@ -1,44 +1,151 @@
-function Scoring(){
+import { useState } from "react";
+import axios from "axios";
 
-  return(
+function Scoring() {
 
-    <form>
+  const [form, setForm] = useState({
+    salaire: "",
+    marie: "non",
+    enfants: "",
+    type_contrat: "cdi",
+    anciennete: "",
+    apport: "",
+    charges: ""
+  });
 
-      <h2>Scoring Client</h2>
+  const [resultat, setResultat] = useState(null);
 
-      <label>
-        Situation familiale
-      </label>
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+  };
 
-      <select>
-        <option>Célibataire</option>
-        <option>Marié</option>
-      </select>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-      <label>
-        Revenus mensuels
-      </label>
+    try {
 
-      <input type="number"/>
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/scoring/calculate/",
+        form
+      );
 
-      <label>
-        Ancienneté emploi
-      </label>
+      setResultat(response.data);
 
-      <input type="number"/>
+    } catch (error) {
+      console.log(error);
+      alert("Erreur scoring");
+    }
+  };
 
-      <label>
-        Nombre d'enfants
-      </label>
+  return (
+    <div>
 
-      <input type="number"/>
+      <h1>Scoring Client</h1>
 
-      <button>
-        Calculer le score
-      </button>
+      <form onSubmit={handleSubmit}>
 
-    </form>
+        <input
+          type="number"
+          name="salaire"
+          placeholder="Salaire"
+          onChange={handleChange}
+        />
 
+        <br /><br />
+
+        <select
+          name="marie"
+          onChange={handleChange}
+        >
+          <option value="oui">Marié</option>
+          <option value="non">Non marié</option>
+        </select>
+
+        <br /><br />
+
+        <input
+          type="number"
+          name="enfants"
+          placeholder="Nombre d'enfants"
+          onChange={handleChange}
+        />
+
+        <br /><br />
+
+        <select
+          name="type_contrat"
+          onChange={handleChange}
+        >
+          <option value="cdi">CDI</option>
+          <option value="cdd">CDD</option>
+          <option value="fonctionnaire">
+            Fonctionnaire
+          </option>
+        </select>
+
+        <br /><br />
+
+        <input
+          type="number"
+          name="anciennete"
+          placeholder="Ancienneté"
+          onChange={handleChange}
+        />
+
+        <br /><br />
+
+        <input
+          type="number"
+          name="apport"
+          placeholder="Apport"
+          onChange={handleChange}
+        />
+
+        <br /><br />
+
+        <input
+          type="number"
+          name="charges"
+          placeholder="Charges"
+          onChange={handleChange}
+        />
+
+        <br /><br />
+
+        <button type="submit">
+          Calculer le scoring
+        </button>
+
+      </form>
+
+      {resultat && (
+
+        <div>
+
+          <h2>Résultat</h2>
+
+          <p>
+            Score : {resultat.score}
+          </p>
+
+          <p>
+            Décision : {resultat.decision}
+          </p>
+
+          <p>
+            Taux d'endettement :
+            {" "}
+            {resultat.taux_endettement} %
+          </p>
+
+        </div>
+
+      )}
+
+    </div>
   );
 }
 

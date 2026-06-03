@@ -1,4 +1,6 @@
 import { useEffect,useState } from "react";
+import api from "../services/api";
+import { Link } from "react-router-dom";
 
 function Home(){
 
@@ -6,9 +8,9 @@ function Home(){
 
   useEffect(()=>{
 
-    fetch("http://127.0.0.1:8000/api/products/")
-      .then(res=>res.json())
-      .then(data=>setProducts(data));
+    api.get("products/")
+      .then(res => res.data)
+      .then(data => setProducts(data));
 
   },[]);
 
