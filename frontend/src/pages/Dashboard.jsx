@@ -1,62 +1,40 @@
-import { useEffect, useState } from "react";
-import api from "../services/api";
-
 function Dashboard() {
 
-    const [orders, setOrders] = useState([]);
+  return (
 
-    useEffect(() => {
+    <div className="dashboard">
 
-        api.get("orders/")
-            .then(res => {
+      <h1 className="dashboard-title">
+        Dashboard
+      </h1>
 
-                setOrders(res.data);
+      <div className="stats-grid">
 
-            })
-
-            .catch(err => {
-
-                console.log(err);
-
-            });
-
-    }, []);
-
-    return (
-
-        <div>
-
-            <h1>Mes Commandes</h1>
-
-            {orders.map(order => (
-
-                <div
-                    key={order.id}
-                    style={{
-                        border: "1px solid gray",
-                        margin: "10px",
-                        padding: "10px"
-                    }}
-                >
-
-                    <h3>
-                        Commande #{order.id}
-                    </h3>
-
-                    <p>
-                        Total : {order.total}
-                    </p>
-
-                    <p>
-                        Statut : {order.statut}
-                    </p>
-
-                </div>
-
-            ))}
-
+        <div className="stat-card">
+          <h3>Simulations</h3>
+          <span>12</span>
         </div>
-    );
+
+        <div className="stat-card">
+          <h3>Commandes</h3>
+          <span>4</span>
+        </div>
+
+        <div className="stat-card">
+          <h3>Acceptées</h3>
+          <span>3</span>
+        </div>
+
+        <div className="stat-card">
+          <h3>Refusées</h3>
+          <span>1</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  );
 }
 
 export default Dashboard;

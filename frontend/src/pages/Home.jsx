@@ -1,39 +1,66 @@
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
+
 import api from "../services/api";
-import { Link } from "react-router-dom";
 
-function Home(){
+import Navbar from "../components/Navbar";
+import Hero from "../components/Hero";
+import Categories from "../components/Categories";
+import ProductCard from "../components/ProductCard";
+import Footer from "../components/Footer";
 
-  const [products,setProducts] = useState([]);
+function Home() {
 
-  useEffect(()=>{
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
 
     api.get("products/")
-      .then(res => res.data)
-      .then(data => setProducts(data));
+      .then(res => {
+        setProducts(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
 
-  },[]);
+  }, []);
 
-  return(
-    <div>
+  return (
 
-      <h1>Catalogue</h1>
+    <>
 
-      {
-        products.map(product => (
+      <Navbar />
 
-          <div key={product.id}>
+      <Hero />
 
-            <h3>{product.nom}</h3>
+      <Categories />
 
-            <p>{product.prix} DA</p>
+      <div className="products-container">
 
-          </div>
+        <h2 className="products-title">
+          Produits disponibles
+        </h2>
 
-        ))
-      }
+        <div className="products-grid">
 
-    </div>
+          {
+            products.map(product => (
+
+              <ProductCard
+                key={product.id}
+                product={product}
+              />
+
+            ))
+          }
+
+        </div>
+
+      </div>
+
+      <Footer />
+
+    </>
+
   );
 }
 

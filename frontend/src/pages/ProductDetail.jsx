@@ -1,50 +1,62 @@
-import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
 import api from "../services/api";
 
 function ProductDetail() {
 
-    const { id } = useParams();
+  const { id } = useParams();
 
-    const [product, setProduct] = useState(null);
+  const [product, setProduct] = useState(null);
 
-    useEffect(() => {
+  useEffect(() => {
 
-        api.get(`products/${id}/`)
-            .then(res => setProduct(res.data));
+    api.get(`products/${id}/`)
+      .then(res => {
+        setProduct(res.data);
+      });
 
-    }, []);
+  }, [id]);
 
-    if (!product) return <h1>Chargement...</h1>;
+  if (!product)
+    return <h2>Chargement...</h2>;
 
-    const addToCart = () => {
+  return (
 
-        api.post("cart-items/add/", {
+    <div className="product-detail">
 
-            user_id: 1,
-            product_id: product.id
+      <img
+        src={product.image}
+        alt={product.nom}
+      />
 
-        })
+      <div className="product-info">
 
-        .then(() => alert("Ajouté au panier"));
-    };
+        <h1>{product.nom}</h1>
 
-    return (
+        <p>{product.description}</p>
 
-        <div>
+        <h2>
+          {product.prix} DA
+        </h2>
 
-            <h1>{product.nom}</h1>
+        <div className="actions">
 
-            <p>{product.description}</p>
+          <button className="btn-primary">
+            Ajouter au panier
+          </button>
 
-            <h2>{product.prix} DA</h2>
-
-            <button onClick={addToCart}>
-                Ajouter au panier
-            </button>
+          <button className="btn-secondary">
+            Simulation
+          </button>
 
         </div>
-    );
+
+      </div>
+
+    </div>
+
+  );
 }
 
 export default ProductDetail;
