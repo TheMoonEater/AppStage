@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import api from "../services/api";
 
@@ -8,6 +9,32 @@ function ProductDetail() {
   const { id } = useParams();
 
   const [product, setProduct] = useState(null);
+
+  const navigate = useNavigate();
+
+
+  const addToCart = async () => {
+
+  try {
+
+    await api.post(
+      "cart-items/add/",
+      {
+        user_id: 1,
+        product_id: product.id
+      }
+    );
+
+    alert("Produit ajouté au panier");
+
+  } catch (error) {
+
+    console.log(error);
+
+    alert("Erreur ajout panier");
+  }
+};
+
 
   useEffect(() => {
 
@@ -42,12 +69,27 @@ function ProductDetail() {
 
         <div className="actions">
 
-          <button className="btn-primary">
+          <button
+            className="btn-primary"
+            onClick={addToCart}
+          >
             Ajouter au panier
           </button>
 
-          <button className="btn-secondary">
+          <button
+            className="btn-secondary"
+            onClick={() =>
+              navigate(`/simulation/${product.id}`)
+            }
+          >
             Simulation
+          </button>
+
+          <button
+            className="btn-secondary"
+            onClick={() => navigate("/home")}
+          >
+            ← Retour au catalogue
           </button>
 
         </div>
