@@ -36,6 +36,11 @@ function Login() {
         data.access
       );
 
+      localStorage.setItem(
+        "role",
+        data.role
+      );
+
       navigate("/home");
 
     } else {

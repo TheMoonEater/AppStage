@@ -1,40 +1,27 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-
+import { useParams, useNavigate } from "react-router-dom";
 import api from "../services/api";
 
 function ProductDetail() {
 
   const { id } = useParams();
 
-  const [product, setProduct] = useState(null);
-
   const navigate = useNavigate();
 
+  const [product, setProduct] = useState(null);
 
-  const addToCart = async () => {
+  const [showSimulation, setShowSimulation] =
+    useState(false);
 
-  try {
+  const [simulation, setSimulation] = useState({
 
-    await api.post(
-      "cart-items/add/",
-      {
-        user_id: 1,
-        product_id: product.id
-      }
-    );
+    apport: "",
+    marge: "10",
+    duree_mois: ""
 
-    alert("Produit ajouté au panier");
+  });
 
-  } catch (error) {
-
-    console.log(error);
-
-    alert("Erreur ajout panier");
-  }
-};
-
+  const [resultat, setResultat] = useState(null);
 
   useEffect(() => {
 
@@ -45,56 +32,217 @@ function ProductDetail() {
 
   }, [id]);
 
+  const handleChange = (e) => {
+
+    setSimulation({
+
+      ...simulation,
+
+      [e.target.name]:
+      e.target.value
+
+    });
+
+  };
+
+  const calculerSimulation = async () => {
+
+    try {
+
+      const res = await api.post(
+        "simulation/create/",
+        {
+
+          client_id: 1,
+
+          prix_bien: product.prix,
+
+          apport: simulation.apport,
+
+          marge: simulation.marge,
+
+          duree_mois:
+            simulation.duree_mois
+
+        }
+      );
+
+      setResultat(res.data);
+
+    } catch (error) {
+
+      console.log(error);
+
+      alert(
+        "Erreur simulation"
+      );
+
+    }
+
+  };
+
   if (!product)
     return <h2>Chargement...</h2>;
 
   return (
 
-    <div className="product-detail">
+    <div className="product-detail-page">
 
-      <img
-        src={product.image}
-        alt={product.nom}
-      />
+      <button
+        className="btn-secondary"
+        onClick={() => navigate("/home")}
+      >
+        ← Retour au catalogue
+      </button>
 
-      <div className="product-info">
+      <div className="product-detail">
 
-        <h1>{product.nom}</h1>
+        <img
+          src={product.image}
+          alt={product.nom}
+        />
 
-        <p>{product.description}</p>
+        <div className="product-info">
 
-        <h2>
-          {product.prix} DA
-        </h2>
+          <h1>{product.nom}</h1>
 
-        <div className="actions">
+          <p>{product.description}</p>
 
-          <button
-            className="btn-primary"
-            onClick={addToCart}
-          >
-            Ajouter au panier
-          </button>
+          <h2>
+            {product.prix} DA
+          </h2>
 
-          <button
-            className="btn-secondary"
-            onClick={() =>
-              navigate(`/simulation/${product.id}`)
-            }
-          >
-            Simulation
-          </button>
+          <div className="actions">
 
-          <button
-            className="btn-secondary"
-            onClick={() => navigate("/home")}
-          >
-            ← Retour au catalogue
-          </button>
+            <button
+              className="btn-primary"
+            >
+              Ajouter au panier
+            </button>
+
+            <button
+              className="btn-secondary"
+              onClick={() =>
+                setShowSimulation(
+                  !showSimulation
+                )
+              }
+            >
+              Faire une simulation
+            </button>
+
+          </div>
 
         </div>
 
       </div>
+
+      {showSimulation && (
+
+        <div className="simulation-card">
+
+          <h2>
+            Simulation Murabaha
+          </h2>
+
+          <div>
+
+            <label>
+              Prix du bien
+            </label>
+
+            <input
+              value={product.prix}
+              disabled
+            />
+
+          </div>
+
+          <div>
+
+            <label>
+              Apport
+            </label>
+
+            <input
+              name="apport"
+              onChange={handleChange}
+            />
+
+          </div>
+
+          <div>
+
+            <label>
+              Marge %
+            </label>
+
+            <input
+              name="marge"
+              value={simulation.marge}
+              onChange={handleChange}
+            />
+
+          </div>
+
+          <div>
+
+            <label>
+              Durée (mois)
+            </label>
+
+            <input
+              name="duree_mois"
+              onChange={handleChange}
+            />
+
+          </div>
+
+          <button
+            className="btn-primary"
+            onClick={calculerSimulation}
+          >
+            Calculer
+          </button>
+
+          {resultat && (
+
+            <div
+              className="result-card"
+            >
+
+              <h3>
+                Résultat
+              </h3>
+
+              <p>
+                Montant financé :
+                {" "}
+                {resultat.montant_finance}
+                {" "}DA
+              </p>
+
+              <p>
+                Prix final :
+                {" "}
+                {resultat.prix_final}
+                {" "}DA
+              </p>
+
+              <p>
+                Mensualité :
+                {" "}
+                {resultat.mensualite}
+                {" "}DA
+              </p>
+
+            </div>
+
+          )}
+
+        </div>
+
+      )}
 
     </div>
 

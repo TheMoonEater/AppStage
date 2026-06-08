@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import Layout from "./components/Layout";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
@@ -8,6 +9,8 @@ import Cart from "./pages/Cart";
 import Simulation from "./pages/Simulation";
 import Scoring from "./pages/Scoring";
 import Dashboard from "./pages/Dashboard";
+import Clients from "./pages/Clients";
+import ClientDetail from "./pages/ClientDetail";
 
 function App() {
 
@@ -21,17 +24,55 @@ function App() {
 
         <Route path="/register" element={<Register />} />
 
-        <Route path="/home" element={<Home />} />
+        <Route path="/home" element={<Layout><Home /></Layout>} />
 
-        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route
+          path="/product/:id"
+          element={
+            <Layout>
+              <ProductDetail />
+            </Layout>
+          }
+        />
 
-        <Route path="/cart" element={<Cart />} />
+        <Route
+          path="/cart"
+          element={
+            <Layout>
+              <Cart />
+            </Layout>
+          }
+        />
 
         <Route path="/simulation/:id" element={<Simulation />} />
 
-        <Route path="/scoring" element={<Scoring />} />
+        <Route
+          path="/scoring"
+          element={
+            <Layout>
+              <Scoring />
+            </Layout>
+          }
+        />
 
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+          path="/dashboard"
+          element={
+            <Layout>
+              <Dashboard />
+            </Layout>
+          }
+        />
+
+        <Route
+          path="/clients"
+          element={<Layout><Clients /></Layout>}
+        />
+
+        <Route
+          path="/clients/:id"
+          element={<Layout><ClientDetail /></Layout>}
+        />
 
       </Routes>
 
