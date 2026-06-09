@@ -882,3 +882,221 @@ button{
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0,0,0,.08);
 }
+
+
+
+
+
+/* ========================= */
+/* SCORING */
+/* ========================= */
+
+.scoring-page,
+.scoring-config-page {
+
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 20px;
+
+}
+
+.page-title {
+
+  color: #213368;
+  font-size: 2rem;
+  margin-bottom: 25px;
+  font-weight: bold;
+
+}
+
+.scoring-card,
+.config-card {
+
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+
+  box-shadow:
+    0 10px 25px rgba(0,0,0,0.08);
+
+}
+
+.form-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
+  gap: 20px;
+
+}
+
+.form-group {
+
+  display: flex;
+  flex-direction: column;
+
+}
+
+.form-group label {
+
+  margin-bottom: 8px;
+
+  color: #426AB3;
+
+  font-weight: 600;
+
+}
+
+.form-group input,
+.form-group select {
+
+  padding: 12px;
+
+  border: 1px solid #ddd;
+
+  border-radius: 10px;
+
+  font-size: 15px;
+
+}
+
+.form-group input:focus,
+.form-group select:focus {
+
+  outline: none;
+
+  border-color: #426AB3;
+
+}
+
+/* Boutons */
+
+.btn-primary {
+
+  background: #F2643B;
+
+  color: white;
+
+  border: none;
+
+  padding: 14px 25px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  font-weight: bold;
+
+  transition: 0.3s;
+
+}
+
+.btn-primary:hover {
+
+  background: #da4f28;
+
+}
+
+.btn-secondary {
+
+  background: #426AB3;
+
+  color: white;
+
+  border: none;
+
+  padding: 14px 25px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  font-weight: bold;
+
+}
+
+.btn-secondary:hover {
+
+  background: #426AB3;
+
+}
+
+/* Résultat */
+
+.result-card {
+
+  margin-top: 30px;
+
+  background: #f9fafb;
+
+  border-left: 6px solid #426AB3;
+
+  padding: 25px;
+
+  border-radius: 12px;
+
+}
+
+.result-score {
+
+  font-size: 2rem;
+
+  color: #426AB3;
+
+  font-weight: bold;
+
+}
+
+.accepted {
+
+  color: green;
+}
+
+.refused {
+
+  color: red;
+}
+
+/* TABLE PARAMETRES */
+
+.config-table {
+
+  width: 100%;
+
+  border-collapse: collapse;
+
+  margin-top: 20px;
+
+}
+
+.config-table th {
+
+  background: #426AB3;
+
+  color: white;
+
+  padding: 15px;
+
+}
+
+.config-table td {
+
+  padding: 15px;
+
+  border-bottom: 1px solid #ddd;
+
+}
+
+.config-table input {
+
+  width: 100%;
+
+  padding: 10px;
+
+  border-radius: 8px;
+
+  border: 1px solid #ccc;
+
+}

@@ -3,13 +3,16 @@ import api from "../services/api";
 
 function ScoringConfig() {
 
-  const [config, setConfig] = useState(null);
+  const [config,setConfig] =
+    useState(null);
 
   useEffect(() => {
 
-    api.get("scoring/config/")
+    api.get("scoring-config/")
       .then(res => {
+
         setConfig(res.data);
+
       });
 
   }, []);
@@ -17,23 +20,27 @@ function ScoringConfig() {
   const handleChange = (e) => {
 
     setConfig({
+
       ...config,
-      [e.target.name]: e.target.value
+
+      [e.target.name]:
+      e.target.value
+
     });
 
   };
 
-  const handleSubmit = async (e) => {
+  const saveConfig = async (e) => {
 
     e.preventDefault();
 
     await api.put(
-      "scoring/config/",
+      "scoring-config/",
       config
     );
 
     alert(
-      "Configuration enregistrée"
+      "Paramètres enregistrés"
     );
 
   };
@@ -43,70 +50,104 @@ function ScoringConfig() {
 
   return (
 
-    <div className="page-container">
+    <div className="scoring-config-page">
 
-      <h1>
-        Paramètres de Scoring
+      <h1 className="page-title">
+        Paramètres du Scoring
       </h1>
 
       <form
-        className="card"
-        onSubmit={handleSubmit}
+        className="config-card"
+        onSubmit={saveConfig}
       >
 
-        <label>
-          Points salaire ≥ 100000
-        </label>
+        <table className="config-table">
 
-        <input
-          name="salaire_100k"
-          value={config.salaire_100k}
-          onChange={handleChange}
-        />
+          <thead>
 
-        <label>
-          Points salaire ≥ 50000
-        </label>
+            <tr>
+              <th>Critère</th>
+              <th>Points</th>
+            </tr>
 
-        <input
-          name="salaire_50k"
-          value={config.salaire_50k}
-          onChange={handleChange}
-        />
+          </thead>
 
-        <label>
-          Points CDI
-        </label>
+          <tbody>
 
-        <input
-          name="cdi"
-          value={config.cdi}
-          onChange={handleChange}
-        />
+            <tr>
+              <td>Salaire ≥ 100000</td>
+              <td>
+                <input
+                  name="salaire_100k"
+                  value={config.salaire_100k}
+                  onChange={handleChange}
+                />
+              </td>
+            </tr>
 
-        <label>
-          Points Fonctionnaire
-        </label>
+            <tr>
+              <td>Salaire ≥ 50000</td>
+              <td>
+                <input
+                  name="salaire_50k"
+                  value={config.salaire_50k}
+                  onChange={handleChange}
+                />
+              </td>
+            </tr>
 
-        <input
-          name="fonctionnaire"
-          value={config.fonctionnaire}
-          onChange={handleChange}
-        />
+            <tr>
+              <td>Mariage</td>
+              <td>
+                <input
+                  name="mariage"
+                  value={config.mariage}
+                  onChange={handleChange}
+                />
+              </td>
+            </tr>
 
-        <label>
-          Seuil d'acceptation
-        </label>
+            <tr>
+              <td>CDI</td>
+              <td>
+                <input
+                  name="cdi"
+                  value={config.cdi}
+                  onChange={handleChange}
+                />
+              </td>
+            </tr>
 
-        <input
-          name="seuil_acceptation"
-          value={config.seuil_acceptation}
-          onChange={handleChange}
-        />
+            <tr>
+              <td>Fonctionnaire</td>
+              <td>
+                <input
+                  name="fonctionnaire"
+                  value={config.fonctionnaire}
+                  onChange={handleChange}
+                />
+              </td>
+            </tr>
+
+            <tr>
+              <td>Seuil Acceptation</td>
+              <td>
+                <input
+                  name="seuil_acceptation"
+                  value={config.seuil_acceptation}
+                  onChange={handleChange}
+                />
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+        <br />
 
         <button
           className="btn-primary"
-          type="submit"
         >
           Sauvegarder
         </button>

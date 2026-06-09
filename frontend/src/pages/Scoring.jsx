@@ -1,151 +1,188 @@
 import { useState } from "react";
-import axios from "axios";
+import api from "../services/api";
 
 function Scoring() {
 
-  const [form, setForm] = useState({
-    salaire: "",
-    marie: "non",
-    enfants: "",
-    type_contrat: "cdi",
-    anciennete: "",
-    apport: "",
-    charges: ""
+  const [form,setForm] = useState({
+
+    salaire:"",
+    marie:"non",
+    enfants:"",
+    type_contrat:"cdi",
+    anciennete:"",
+    apport:"",
+    charges:""
+
   });
 
-  const [resultat, setResultat] = useState(null);
+  const [resultat,setResultat] = useState(null);
 
   const handleChange = (e) => {
+
     setForm({
+
       ...form,
+
       [e.target.name]: e.target.value
+
     });
+
   };
 
   const handleSubmit = async (e) => {
+
     e.preventDefault();
 
-    try {
+    const res = await api.post(
+      "scoring/calculate/",
+      form
+    );
 
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/scoring/calculate/",
-        form
-      );
+    setResultat(res.data);
 
-      setResultat(response.data);
-
-    } catch (error) {
-      console.log(error);
-      alert("Erreur scoring");
-    }
   };
 
   return (
-    <div>
 
-      <h1>Scoring Client</h1>
+    <div className="scoring-page">
 
-      <form onSubmit={handleSubmit}>
+      <h1 className="page-title">
+        Calcul du Score Client
+      </h1>
 
-        <input
-          type="number"
-          name="salaire"
-          placeholder="Salaire"
-          onChange={handleChange}
-        />
+      <form
+        className="scoring-card"
+        onSubmit={handleSubmit}
+      >
 
-        <br /><br />
+        <div className="form-grid">
 
-        <select
-          name="marie"
-          onChange={handleChange}
+          <div className="form-group">
+            <label>Salaire</label>
+            <input
+              name="salaire"
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Situation</label>
+
+            <select
+              name="marie"
+              onChange={handleChange}
+            >
+              <option value="oui">Marié</option>
+              <option value="non">Célibataire</option>
+            </select>
+
+          </div>
+
+          <div className="form-group">
+            <label>Nombre enfants</label>
+
+            <input
+              name="enfants"
+              onChange={handleChange}
+            />
+
+          </div>
+
+          <div className="form-group">
+            <label>Contrat</label>
+
+            <select
+              name="type_contrat"
+              onChange={handleChange}
+            >
+              <option value="cdi">
+                CDI
+              </option>
+
+              <option value="fonctionnaire">
+                Fonctionnaire
+              </option>
+
+            </select>
+
+          </div>
+
+          <div className="form-group">
+            <label>Ancienneté</label>
+
+            <input
+              name="anciennete"
+              onChange={handleChange}
+            />
+
+          </div>
+
+          <div className="form-group">
+            <label>Apport</label>
+
+            <input
+              name="apport"
+              onChange={handleChange}
+            />
+
+          </div>
+
+          <div className="form-group">
+            <label>Charges</label>
+
+            <input
+              name="charges"
+              onChange={handleChange}
+            />
+
+          </div>
+
+        </div>
+
+        <br />
+
+        <button
+          className="btn-primary"
         >
-          <option value="oui">Marié</option>
-          <option value="non">Non marié</option>
-        </select>
-
-        <br /><br />
-
-        <input
-          type="number"
-          name="enfants"
-          placeholder="Nombre d'enfants"
-          onChange={handleChange}
-        />
-
-        <br /><br />
-
-        <select
-          name="type_contrat"
-          onChange={handleChange}
-        >
-          <option value="cdi">CDI</option>
-          <option value="cdd">CDD</option>
-          <option value="fonctionnaire">
-            Fonctionnaire
-          </option>
-        </select>
-
-        <br /><br />
-
-        <input
-          type="number"
-          name="anciennete"
-          placeholder="Ancienneté"
-          onChange={handleChange}
-        />
-
-        <br /><br />
-
-        <input
-          type="number"
-          name="apport"
-          placeholder="Apport"
-          onChange={handleChange}
-        />
-
-        <br /><br />
-
-        <input
-          type="number"
-          name="charges"
-          placeholder="Charges"
-          onChange={handleChange}
-        />
-
-        <br /><br />
-
-        <button type="submit">
-          Calculer le scoring
+          Calculer
         </button>
 
       </form>
 
       {resultat && (
 
-        <div>
+        <div className="result-card">
 
-          <h2>Résultat</h2>
+          <h2>
+            Résultat
+          </h2>
 
-          <p>
-            Score : {resultat.score}
-          </p>
-
-          <p>
-            Décision : {resultat.decision}
-          </p>
+          <div className="result-score">
+            {resultat.score}/100
+          </div>
 
           <p>
-            Taux d'endettement :
+            Taux endettement :
             {" "}
-            {resultat.taux_endettement} %
+            {resultat.taux_endettement}%
           </p>
+
+          <h3
+            className={
+              resultat.decision === "ACCEPTE"
+              ? "accepted"
+              : "refused"
+            }
+          >
+            {resultat.decision}
+          </h3>
 
         </div>
 
       )}
 
     </div>
+
   );
 }
 

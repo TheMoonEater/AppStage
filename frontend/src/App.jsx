@@ -8,6 +8,7 @@ import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
 import Simulation from "./pages/Simulation";
 import Scoring from "./pages/Scoring";
+import ScoringConfig from "./pages/ScoringConfig";
 import Dashboard from "./pages/Dashboard";
 import Clients from "./pages/Clients";
 import ClientDetail from "./pages/ClientDetail";
@@ -53,6 +54,11 @@ function App() {
               <Scoring />
             </Layout>
           }
+        />
+
+        <Route
+          path="/scoring-config"
+          element={<Layout><ScoringConfig /></Layout>}
         />
 
         <Route
