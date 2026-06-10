@@ -22,7 +22,11 @@ function ProductCard({ product }) {
         </h3>
 
         <p>
-          {product.description}
+          
+          {product.description.length > 80
+            ? product.description.substring(0, 80) + "..."
+            : product.description}
+
         </p>
 
         <div className="product-price">
