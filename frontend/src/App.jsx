@@ -5,6 +5,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
 import ProductDetail from "./pages/ProductDetail";
+import UsersManagement from "./pages/UsersManagement";
+import ProductsManagement from "./pages/ProductsManagement";
 import Cart from "./pages/Cart";
 import Simulation from "./pages/Simulation";
 import Scoring from "./pages/Scoring";
@@ -12,6 +14,7 @@ import ScoringConfig from "./pages/ScoringConfig";
 import Dashboard from "./pages/Dashboard";
 import Clients from "./pages/Clients";
 import ClientDetail from "./pages/ClientDetail";
+import ClientDashboard from "./pages/ClientDashboard";
 
 function App() {
 
@@ -69,6 +72,34 @@ function App() {
             </Layout>
           }
         />
+
+        <Route
+          path="/my-folder"
+          element={
+            <Layout>
+              <ClientDashboard />
+            </Layout>
+          }
+        />
+
+        <Route
+          path="/admin/users"
+          element={
+            <Layout>
+              <UsersManagement />
+            </Layout>
+          }
+        />
+
+        <Route
+          path="/admin/products"
+          element={
+            <Layout>
+              <ProductsManagement />
+            </Layout>
+          }
+        />
+
 
         <Route
           path="/clients"

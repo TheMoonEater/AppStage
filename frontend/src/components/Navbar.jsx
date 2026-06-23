@@ -81,7 +81,7 @@ function Navbar() {
         {role === "CLIENT" && (
 
           <Link
-            to="/dashboard"
+            to="/my-folder"
             onClick={closeMenu}
           >
             Mon dossier
@@ -111,11 +111,34 @@ function Navbar() {
 
         {["ADMIN", "RETAIL"].includes(role) && (
 
+            <>
+
+              <Link
+                to="/admin/products"
+                onClick={closeMenu}
+              >
+                Produits
+              </Link>
+
+              <Link
+                to="/scoring-config"
+                onClick={closeMenu}
+              >
+                Paramètres scoring
+              </Link>
+
+            </>
+
+        )}
+
+
+        {role === "ADMIN" && (
+
           <Link
-            to="/scoring-config"
+            to="/admin/users"
             onClick={closeMenu}
           >
-            Paramètres scoring
+            Utilisateurs
           </Link>
 
         )}

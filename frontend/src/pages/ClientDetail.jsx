@@ -109,6 +109,15 @@ function ClientDetail() {
 
       </div>
 
+      <button
+      className="btn-primary"
+      onClick={() =>
+        validateDocument(doc.id)
+      }
+      >
+      Valider
+      </button>
+
       <button className="btn-primary">
 
         Télécharger PDF

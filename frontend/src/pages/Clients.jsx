@@ -11,7 +11,8 @@ function Clients() {
 
     api.get("clients/")
       .then((res) => {
-        setClients(res.data);
+        console.log(res.data);
+        setClients(res.data.results);
       })
       .catch((err) => {
         console.log(err);
