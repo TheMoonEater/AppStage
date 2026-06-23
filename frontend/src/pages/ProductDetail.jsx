@@ -15,19 +15,35 @@ function ProductDetail() {
 
   const [simulation, setSimulation] = useState({
 
-    apport: "",
-    marge: "10",
+    salaire_acheteur: "",
+
+    salaire_co_acheteur: "",
+
+    credit_consomme: "",
+
+    apport: "0",
+
+    marge: "30",
+
     duree_mois: ""
 
   });
 
-  const [resultat, setResultat] = useState(null);
+  const [resultat, setResultat] =
+    useState(null);
 
   useEffect(() => {
 
     api.get(`products/${id}/`)
       .then(res => {
+
         setProduct(res.data);
+
+      })
+      .catch(err => {
+
+        console.log(err);
+
       });
 
   }, [id]);
@@ -39,7 +55,7 @@ function ProductDetail() {
       ...simulation,
 
       [e.target.name]:
-      e.target.value
+        e.target.value
 
     });
 
@@ -57,9 +73,20 @@ function ProductDetail() {
 
           prix_bien: product.prix,
 
-          apport: simulation.apport,
+          salaire_acheteur:
+            simulation.salaire_acheteur,
 
-          marge: simulation.marge,
+          salaire_co_acheteur:
+            simulation.salaire_co_acheteur || 0,
+
+          credit_consomme:
+            simulation.credit_consomme || 0,
+
+          apport:
+            simulation.apport || 0,
+
+          marge:
+            simulation.marge || 30,
 
           duree_mois:
             simulation.duree_mois
@@ -67,11 +94,19 @@ function ProductDetail() {
         }
       );
 
+      console.log(
+        "REPONSE API :",
+        res.data
+      );
+
       setResultat(res.data);
 
     } catch (error) {
 
-      console.log(error);
+      console.log(
+        "ERREUR :",
+        error.response?.data
+      );
 
       alert(
         "Erreur simulation"
@@ -90,7 +125,9 @@ function ProductDetail() {
 
       <button
         className="btn-secondary"
-        onClick={() => navigate("/home")}
+        onClick={() =>
+          navigate("/home")
+        }
       >
         ← Retour au catalogue
       </button>
@@ -104,9 +141,13 @@ function ProductDetail() {
 
         <div className="product-info">
 
-          <h1>{product.nom}</h1>
+          <h1>
+            {product.nom}
+          </h1>
 
-          <p>{product.description}</p>
+          <p>
+            {product.description}
+          </p>
 
           <h2>
             {product.prix} DA
@@ -161,11 +202,12 @@ function ProductDetail() {
           <div>
 
             <label>
-              Apport
+              Salaire acheteur
             </label>
 
             <input
-              name="apport"
+              type="number"
+              name="salaire_acheteur"
               onChange={handleChange}
             />
 
@@ -174,12 +216,26 @@ function ProductDetail() {
           <div>
 
             <label>
-              Marge %
+              Salaire co-acheteur
             </label>
 
             <input
-              name="marge"
-              value={simulation.marge}
+              type="number"
+              name="salaire_co_acheteur"
+              onChange={handleChange}
+            />
+
+          </div>
+
+          <div>
+
+            <label>
+              Crédit consommé
+            </label>
+
+            <input
+              type="number"
+              name="credit_consomme"
               onChange={handleChange}
             />
 
@@ -192,7 +248,11 @@ function ProductDetail() {
             </label>
 
             <input
+              type="number"
               name="duree_mois"
+              min="12"
+              max="60"
+              placeholder="Entre 12 et 60 mois"
               onChange={handleChange}
             />
 
@@ -200,40 +260,107 @@ function ProductDetail() {
 
           <button
             className="btn-primary"
-            onClick={calculerSimulation}
+            onClick={
+              calculerSimulation
+            }
           >
             Calculer
           </button>
 
           {resultat && (
 
-            <div
-              className="result-card"
-            >
+            <div className="result-card">
 
               <h3>
                 Résultat
               </h3>
 
               <p>
+                Salaire total :
+                {" "}
+                {resultat.salaire_total}
+                {" "}
+                DA
+              </p>
+
+              <p>
+                CE brute :
+                {" "}
+                {resultat.ce_brute}
+                {" "}
+                DA
+              </p>
+
+              <p>
+                Crédit consommé :
+                {" "}
+                {resultat.credit_consomme}
+                {" "}
+                DA
+              </p>
+
+              <p>
+                CE nette :
+                {" "}
+                {resultat.ce_nette}
+                {" "}
+                DA
+              </p>
+
+              <p>
+                Apport minimum :
+                {" "}
+                {resultat.apport}
+                {" "}
+                DA
+              </p>
+
+              <p>
                 Montant financé :
                 {" "}
                 {resultat.montant_finance}
-                {" "}DA
+                {" "}
+                DA
               </p>
 
               <p>
                 Prix final :
                 {" "}
                 {resultat.prix_final}
-                {" "}DA
+                {" "}
+                DA
               </p>
 
               <p>
                 Mensualité :
                 {" "}
                 {resultat.mensualite}
-                {" "}DA
+                {" "}
+                DA
+              </p>
+
+              <p>
+                Marge totale :
+                {" "}
+                {resultat.montant_total_marge}
+                {" "}
+                DA
+              </p>
+
+              <p>
+                TVA :
+                {" "}
+                {resultat.montant_total_tva}
+                {" "}
+                DA
+              </p>
+
+              <p>
+                Montant remboursement :
+                {" "}
+                {resultat.montant_remboursement}
+                {" "}
+                DA
               </p>
 
             </div>
@@ -247,6 +374,7 @@ function ProductDetail() {
     </div>
 
   );
+
 }
 
 export default ProductDetail;
