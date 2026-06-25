@@ -61,6 +61,34 @@ function ProductDetail() {
 
   };
 
+  const addToCart = async () => {
+
+      try {
+
+        await api.post(
+          "cart-items/add/",
+          {
+            product_id: product.id
+          }
+        );
+
+        alert(
+          "Produit ajouté au panier"
+        );
+
+      } catch (error) {
+
+        console.log(error);
+
+        alert(
+          "Erreur ajout panier"
+        );
+      }
+    };
+
+
+
+
   const calculerSimulation = async () => {
 
     try {
@@ -157,6 +185,7 @@ function ProductDetail() {
 
             <button
               className="btn-primary"
+              onClick={addToCart}
             >
               Ajouter au panier
             </button>

@@ -29,6 +29,8 @@ function Login() {
 
     const data = await response.json();
 
+    console.log("LOGIN =", data);
+
     if (response.ok) {
 
       localStorage.setItem(
@@ -39,6 +41,11 @@ function Login() {
       localStorage.setItem(
         "role",
         data.role
+      );
+
+      localStorage.setItem(
+        "user_id",
+        data.id
       );
 
       navigate("/home");
