@@ -7,10 +7,15 @@ function Register() {
 
   const [formData, setFormData] = useState({
 
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: ""
+      nom: "",
+      prenom: "",
+      username: "",
+      email: "",
+      phone: "",
+      date_naissance: "",
+      numero_cni: "",
+      password: "",
+      confirmPassword: ""
 
   });
 
@@ -58,16 +63,16 @@ function Register() {
 
         body: JSON.stringify({
 
-          username:
-            formData.username,
+            nom: formData.nom,
+            prenom: formData.prenom,
+            username: formData.username,
+            email: formData.email,
+            phone: formData.phone,
+            date_naissance: formData.date_naissance,
+            numero_cni: formData.numero_cni,
+            password: formData.password
 
-          email:
-            formData.email,
-
-          password:
-            formData.password
-
-        })
+          })
 
       }
 
@@ -117,6 +122,40 @@ function Register() {
         <form
           onSubmit={handleSubmit}
         >
+
+          <input
+            type="text"
+            name="nom"
+            placeholder="Nom"
+            onChange={handleChange}
+          />
+
+          <input
+            type="text"
+            name="prenom"
+            placeholder="Prénom"
+            onChange={handleChange}
+          />
+
+          <input
+            type="tel"
+            name="phone"
+            placeholder="Téléphone"
+            onChange={handleChange}
+          />
+
+          <input
+            type="date"
+            name="date_naissance"
+            onChange={handleChange}
+          />
+
+          <input
+            type="text"
+            name="numero_cni"
+            placeholder="Numéro carte nationale"
+            onChange={handleChange}
+          />
 
           <input
             type="text"

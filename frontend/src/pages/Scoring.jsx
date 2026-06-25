@@ -1,21 +1,106 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import api from "../services/api";
 
 function Scoring() {
 
-  const [form,setForm] = useState({
+  const [form, setForm] = useState({
 
-    salaire:"",
-    marie:"non",
-    enfants:"",
-    type_contrat:"cdi",
-    anciennete:"",
-    apport:"",
-    charges:""
+    age: "",
 
+    nombre_personnes_charge: "",
+
+    habitation: "",
+
+    niveau_instruction: "",
+
+    secteur_activite: "",
+
+    anciennete: "",
+
+    type_contrat: "",
+
+    salaire: "",
+
+    autres_revenus: "",
+
+    charges: "",
+
+    marie: "non",
+
+    enfants: "",
+
+    apport: "0"
   });
 
-  const [resultat,setResultat] = useState(null);
+  const [resultat, setResultat] =
+    useState(null);
+
+  useEffect(() => {
+
+    loadClient();
+
+  }, []);
+
+  const loadClient = async () => {
+
+    try {
+
+      const res =
+        await api.get(
+          "clients/me/"
+        );
+
+      setForm({
+
+        age: res.data.age || "",
+
+        nombre_personnes_charge:
+          res.data.nombre_personnes_charge || "",
+
+        habitation:
+          res.data.habitation || "",
+
+        niveau_instruction:
+          res.data.niveau_instruction || "",
+
+        secteur_activite:
+          res.data.secteur_activite || "",
+
+        anciennete:
+          res.data.anciennete_annees || "",
+
+        type_contrat:
+          res.data.type_contrat || "",
+
+        salaire:
+          res.data.salaire_mensuel || "",
+
+        autres_revenus:
+          res.data.autres_revenus || "",
+
+        charges:
+          res.data.charges_mensuelles || "",
+
+        marie:
+          res.data.situation_familiale ===
+          "MARIE"
+            ? "oui"
+            : "non",
+
+        enfants:
+          res.data.nombre_personnes_charge || "",
+
+        apport: "0"
+
+      });
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  };
 
   const handleChange = (e) => {
 
@@ -23,7 +108,8 @@ function Scoring() {
 
       ...form,
 
-      [e.target.name]: e.target.value
+      [e.target.name]:
+        e.target.value
 
     });
 
@@ -33,12 +119,37 @@ function Scoring() {
 
     e.preventDefault();
 
-    const res = await api.post(
-      "scoring/calculate/",
-      form
-    );
+    try {
 
-    setResultat(res.data);
+      const res =
+        await api.post(
+          "scoring/calculate/",
+          {
+            salaire: form.salaire,
+            marie: form.marie,
+            enfants: form.enfants,
+            type_contrat:
+              form.type_contrat,
+            anciennete:
+              form.anciennete,
+            apport:
+              form.apport,
+            charges:
+              form.charges
+          }
+        );
+
+      setResultat(res.data);
+
+    } catch (error) {
+
+      console.log(error);
+
+      alert(
+        "Erreur calcul scoring"
+      );
+
+    }
 
   };
 
@@ -47,7 +158,7 @@ function Scoring() {
     <div className="scoring-page">
 
       <h1 className="page-title">
-        Calcul du Score Client
+        Scoring Client
       </h1>
 
       <form
@@ -55,96 +166,148 @@ function Scoring() {
         onSubmit={handleSubmit}
       >
 
+        <h2>
+          Identification
+        </h2>
+
         <div className="form-grid">
 
           <div className="form-group">
-            <label>Salaire</label>
+            <label>Age</label>
             <input
-              name="salaire"
-              onChange={handleChange}
+              value={form.age}
+              disabled
             />
           </div>
 
           <div className="form-group">
-            <label>Situation</label>
-
-            <select
-              name="marie"
-              onChange={handleChange}
-            >
-              <option value="oui">Marié</option>
-              <option value="non">Célibataire</option>
-            </select>
-
-          </div>
-
-          <div className="form-group">
-            <label>Nombre enfants</label>
-
+            <label>
+              Personnes à charge
+            </label>
             <input
-              name="enfants"
-              onChange={handleChange}
+              value={
+                form.nombre_personnes_charge
+              }
+              disabled
             />
-
           </div>
 
           <div className="form-group">
-            <label>Contrat</label>
-
-            <select
-              name="type_contrat"
-              onChange={handleChange}
-            >
-              <option value="cdi">
-                CDI
-              </option>
-
-              <option value="fonctionnaire">
-                Fonctionnaire
-              </option>
-
-            </select>
-
-          </div>
-
-          <div className="form-group">
-            <label>Ancienneté</label>
-
+            <label>
+              Habitation
+            </label>
             <input
-              name="anciennete"
-              onChange={handleChange}
+              value={form.habitation}
+              disabled
             />
-
           </div>
 
           <div className="form-group">
-            <label>Apport</label>
-
+            <label>
+              Niveau instruction
+            </label>
             <input
-              name="apport"
-              onChange={handleChange}
+              value={
+                form.niveau_instruction
+              }
+              disabled
             />
-
-          </div>
-
-          <div className="form-group">
-            <label>Charges</label>
-
-            <input
-              name="charges"
-              onChange={handleChange}
-            />
-
           </div>
 
         </div>
 
-        <br />
+        <h2>
+          Situation professionnelle
+        </h2>
+
+        <div className="form-grid">
+
+          <div className="form-group">
+            <label>
+              Secteur activité
+            </label>
+            <input
+              value={
+                form.secteur_activite
+              }
+              disabled
+            />
+          </div>
+
+          <div className="form-group">
+            <label>
+              Ancienneté
+            </label>
+            <input
+              value={
+                form.anciennete
+              }
+              disabled
+            />
+          </div>
+
+          <div className="form-group">
+            <label>
+              Contrat
+            </label>
+            <input
+              value={
+                form.type_contrat
+              }
+              disabled
+            />
+          </div>
+
+        </div>
+
+        <h2>
+          Situation financière
+        </h2>
+
+        <div className="form-grid">
+
+          <div className="form-group">
+            <label>
+              Salaire
+            </label>
+            <input
+              value={
+                form.salaire
+              }
+              disabled
+            />
+          </div>
+
+          <div className="form-group">
+            <label>
+              Autres revenus
+            </label>
+            <input
+              value={
+                form.autres_revenus
+              }
+              disabled
+            />
+          </div>
+
+          <div className="form-group">
+            <label>
+              Charges
+            </label>
+            <input
+              value={
+                form.charges
+              }
+              disabled
+            />
+          </div>
+
+        </div>
 
         <button
           className="btn-primary"
         >
-          Calculer
+          Calculer mon scoring
         </button>
 
       </form>
@@ -162,16 +325,20 @@ function Scoring() {
           </div>
 
           <p>
-            Taux endettement :
+            Taux d'endettement :
             {" "}
-            {resultat.taux_endettement}%
+            {
+              resultat.taux_endettement
+            }
+            %
           </p>
 
           <h3
             className={
-              resultat.decision === "ACCEPTE"
-              ? "accepted"
-              : "refused"
+              resultat.decision ===
+              "ACCEPTE"
+                ? "accepted"
+                : "refused"
             }
           >
             {resultat.decision}
@@ -184,6 +351,7 @@ function Scoring() {
     </div>
 
   );
+
 }
 
 export default Scoring;

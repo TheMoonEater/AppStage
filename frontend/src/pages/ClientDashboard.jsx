@@ -3,115 +3,253 @@ import api from "../services/api";
 
 function ClientDashboard() {
 
-  const [dossier, setDossier] =
+  const [client, setClient] =
     useState(null);
+
+  const [documents, setDocuments] =
+    useState([]);
+
+  const [file, setFile] =
+    useState(null);
+
+  const [typeDocument, setTypeDocument] =
+    useState("CNI");
 
   useEffect(() => {
 
-    api.get("clients/me/")
-      .then((res) => {
-
-        setDossier(res.data);
-
-      })
-      .catch(console.log);
+    loadData();
 
   }, []);
 
-  if (!dossier)
+  const loadData = async () => {
+
+    try {
+
+      const clientRes =
+        await api.get("clients/me/");
+
+      setClient(clientRes.data);
+
+      const docsRes =
+        await api.get("documents/");
+
+      setDocuments(docsRes.data);
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  };
+
+  const uploadDocument =
+    async () => {
+
+      if (!file) {
+
+        alert(
+          "Choisissez un fichier"
+        );
+
+        return;
+      }
+
+      const formData =
+        new FormData();
+
+      formData.append(
+        "fichier",
+        file
+      );
+
+      formData.append(
+        "type_document",
+        typeDocument
+      );
+
+      try {
+
+        await api.post(
+          "documents/",
+          formData,
+          {
+            headers: {
+              "Content-Type":
+                "multipart/form-data"
+            }
+          }
+        );
+
+        alert(
+          "Document envoyé"
+        );
+
+        loadData();
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+    };
+
+  if (!client)
     return <h2>Chargement...</h2>;
 
   return (
 
-    <div className="page-container">
+    <div className="client-dashboard">
 
-      <h1>Mon dossier</h1>
+      <h1>
+        Mon dossier
+      </h1>
 
-      <div className="card">
+      <div className="dashboard-card">
 
-        <h2>
-          Informations personnelles
-        </h2>
+        <h2>Mon Compte</h2>
 
         <p>
-          {dossier.client.nom}
+          Nom :
           {" "}
-          {dossier.client.prenom}
+          {client.nom}
         </p>
 
         <p>
-          {dossier.client.email}
+          Prénom :
+          {" "}
+          {client.prenom}
         </p>
 
         <p>
-          {dossier.client.telephone}
+          Email :
+          {" "}
+          {client.email}
         </p>
 
         <p>
-          {dossier.client.adresse}
+          Téléphone :
+          {" "}
+          {client.telephone}
+        </p>
+
+        <p>
+          Date naissance :
+          {" "}
+          {client.date_naissance}
+        </p>
+
+        <p>
+          Mot de passe :
+          ********
         </p>
 
       </div>
 
-      <div className="card">
+      <div className="dashboard-card">
+
+        <h2>Identification</h2>
+
+        <p>
+          Âge : {client.age} ans
+        </p>
+
+        <p>
+          Situation familiale :
+          {" "}
+          {client.situation_familiale}
+        </p>
+
+        <p>
+          Personnes à charge :
+          {" "}
+          {client.nombre_personnes_charge}
+        </p>
+
+        <p>
+          Habitation :
+          {" "}
+          {client.habitation}
+        </p>
+
+        <p>
+          Niveau instruction :
+          {" "}
+          {client.niveau_instruction}
+        </p>
+
+      </div>
+
+      <div className="dashboard-card">
 
         <h2>
           Situation professionnelle
         </h2>
 
         <p>
-          Salaire :
+          Secteur :
           {" "}
-          {dossier.client.salaire}
-          {" "}
-          DA
+          {client.secteur_activite}
         </p>
 
         <p>
           Contrat :
           {" "}
-          {dossier.client.contrat}
+          {client.type_contrat}
         </p>
 
         <p>
           Ancienneté :
           {" "}
-          {dossier.client.anciennete}
+          {client.anciennete_annees}
           {" "}
           ans
         </p>
 
       </div>
 
-      {dossier.demande && (
+      <div className="dashboard-card">
 
-        <div className="card">
+        <h2>
+          Situation financière
+        </h2>
 
-          <h2>
-            Etat du dossier
-          </h2>
+        <p>
+          Salaire :
+          {" "}
+          {client.salaire_mensuel}
+          {" "}
+          DA
+        </p>
 
-          <p>
+        <p>
+          Autres revenus :
+          {" "}
+          {client.autres_revenus}
+          {" "}
+          DA
+        </p>
 
-            <strong>
+        <p>
+          Charges :
+          {" "}
+          {client.charges_mensuelles}
+          {" "}
+          DA
+        </p>
 
-              {dossier.demande.statut}
+        <p>
+          Crédits en cours :
+          {" "}
+          {client.credits_en_cours}
+          {" "}
+          DA
+        </p>
 
-            </strong>
+      </div>
 
-          </p>
-
-          <p>
-
-            {dossier.demande.commentaire}
-
-          </p>
-
-        </div>
-
-      )}
-
-      <div className="card">
+      <div className="dashboard-card">
 
         <h2>
           Mes documents
@@ -119,44 +257,92 @@ function ClientDashboard() {
 
         {
 
-          dossier.documents.map(
-            doc => (
+          documents.length === 0 ? (
 
-              <div key={doc.id}>
+            <p>
+              Aucun document
+            </p>
 
-                <p>
+          ) : (
 
-                  {doc.type}
+            documents.map(doc => (
 
-                  {" - "}
+              <p key={doc.id}>
 
-                  {
+                📄
 
-                    doc.valide
+                {" "}
 
-                    ? "✅ Validé"
+                {doc.fichier
+                  .split("/")
+                  .pop()}
 
-                    : "⏳ En attente"
+              </p>
 
-                  }
+            ))
 
-                </p>
-
-              </div>
-
-            )
           )
 
         }
 
       </div>
 
-      <a
-        href="http://127.0.0.1:8000/api/dossier-client-pdf/"
-        className="btn-primary"
-      >
-        Télécharger PDF
-      </a>
+      <div className="dashboard-card">
+
+        <input
+          type="file"
+          onChange={(e) =>
+            setFile(
+              e.target.files[0]
+            )
+          }
+        />
+
+        <br />
+        <br />
+
+        <label>
+          Type :
+        </label>
+
+        <select
+          value={typeDocument}
+          onChange={(e) =>
+            setTypeDocument(
+              e.target.value
+            )
+          }
+        >
+
+          <option value="CNI">
+            Carte identité
+          </option>
+
+          <option value="PAIE">
+            Fiche de paie
+          </option>
+
+          <option value="TRAVAIL">
+            Attestation travail
+          </option>
+
+          <option value="AUTRE">
+            Autre
+          </option>
+
+        </select>
+
+        <br />
+        <br />
+
+        <button
+          className="btn-primary"
+          onClick={uploadDocument}
+        >
+          Envoyer
+        </button>
+
+      </div>
 
     </div>
 

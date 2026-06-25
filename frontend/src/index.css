@@ -1800,3 +1800,54 @@ button{
     text-align: center;
     box-shadow: 0 5px 15px rgba(0,0,0,0.08);
 }
+
+
+
+
+
+
+
+
+/* =========================
+   CLIENT DASHBOARD
+========================= */
+
+.client-dashboard {
+    max-width: 900px;
+    margin: auto;
+    padding: 30px;
+}
+
+.client-dashboard h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #17324D;
+}
+
+.dashboard-card {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.dashboard-card h2 {
+    color: #17324D;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+.dashboard-card p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.dashboard-card input,
+.dashboard-card select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
