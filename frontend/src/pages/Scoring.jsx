@@ -82,8 +82,7 @@ function Scoring() {
           res.data.charges_mensuelles || "",
 
         marie:
-          res.data.situation_familiale ===
-          "MARIE"
+          res.data.situation_familiale === "MARIE"
             ? "oui"
             : "non",
 
@@ -121,32 +120,102 @@ function Scoring() {
 
     try {
 
+      // =====================
+      // Sauvegarde Mon Dossier
+      // =====================
+
+      await api.patch(
+        "clients/me/",
+        {
+          nombre_personnes_charge:
+            form.nombre_personnes_charge,
+
+          habitation:
+            form.habitation,
+
+          niveau_instruction:
+            form.niveau_instruction,
+
+          secteur_activite:
+            form.secteur_activite,
+
+          anciennete_annees:
+            form.anciennete,
+
+          type_contrat:
+            form.type_contrat,
+
+          salaire_mensuel:
+            form.salaire,
+
+          autres_revenus:
+            form.autres_revenus,
+
+          charges_mensuelles:
+            form.charges
+        }
+      );
+
+      // =====================
+      // Calcul scoring
+      // =====================
+
       const res =
         await api.post(
           "scoring/calculate/",
           {
-            salaire: form.salaire,
-            marie: form.marie,
-            enfants: form.enfants,
+            age: form.age,
+
+            nombre_personnes_charge:
+              form.nombre_personnes_charge,
+
+            habitation:
+              form.habitation,
+
+            niveau_instruction:
+              form.niveau_instruction,
+
+            secteur_activite:
+              form.secteur_activite,
+
+            salaire:
+              form.salaire,
+
+            autres_revenus:
+              form.autres_revenus,
+
+            charges:
+              form.charges,
+
             type_contrat:
-              form.type_contrat,
+              form.type_contrat.toLowerCase(),
+
             anciennete:
               form.anciennete,
+
+            marie:
+              form.marie,
+
+            enfants:
+              form.nombre_personnes_charge,
+
             apport:
-              form.apport,
-            charges:
-              form.charges
+              form.apport
           }
         );
 
       setResultat(res.data);
+
+      alert(
+        "Informations enregistrées avec succès"
+      );
 
     } catch (error) {
 
       console.log(error);
 
       alert(
-        "Erreur calcul scoring"
+        "Erreur lors du calcul"
       );
 
     }
@@ -174,6 +243,7 @@ function Scoring() {
 
           <div className="form-group">
             <label>Age</label>
+
             <input
               value={form.age}
               disabled
@@ -182,13 +252,14 @@ function Scoring() {
 
           <div className="form-group">
             <label>
-              Personnes à charge
+              Nombre de personnes à charge
             </label>
+
             <input
-              value={
-                form.nombre_personnes_charge
-              }
-              disabled
+              type="number"
+              name="nombre_personnes_charge"
+              value={form.nombre_personnes_charge}
+              onChange={handleChange}
             />
           </div>
 
@@ -196,22 +267,64 @@ function Scoring() {
             <label>
               Habitation
             </label>
-            <input
+
+            <select
+              name="habitation"
               value={form.habitation}
-              disabled
-            />
+              onChange={handleChange}
+            >
+              <option value="">
+                Choisir
+              </option>
+
+              <option value="Proprietaire">
+                Propriétaire
+              </option>
+
+              <option value="Locataire">
+                Locataire
+              </option>
+
+              <option value="Familiale">
+                Logement familial
+              </option>
+            </select>
           </div>
 
           <div className="form-group">
             <label>
-              Niveau instruction
+              Niveau d'instruction
             </label>
-            <input
-              value={
-                form.niveau_instruction
-              }
-              disabled
-            />
+
+            <select
+              name="niveau_instruction"
+              value={form.niveau_instruction}
+              onChange={handleChange}
+            >
+              <option value="">
+                Choisir
+              </option>
+
+              <option value="Primaire">
+                Primaire
+              </option>
+
+              <option value="Secondaire">
+                Secondaire
+              </option>
+
+              <option value="Universitaire">
+                Universitaire
+              </option>
+
+              <option value="Master">
+                Master
+              </option>
+
+              <option value="Doctorat">
+                Doctorat
+              </option>
+            </select>
           </div>
 
         </div>
@@ -224,38 +337,67 @@ function Scoring() {
 
           <div className="form-group">
             <label>
-              Secteur activité
+              Secteur d'activité
             </label>
+
+            <select
+              name="secteur_activite"
+              value={form.secteur_activite}
+              onChange={handleChange}
+            >
+              <option value="">
+                Choisir
+              </option>
+
+              <option value="PUBLIC">
+                Public
+              </option>
+
+              <option value="PRIVE">
+                Privé
+              </option>
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label>
+              Ancienneté (années)
+            </label>
+
             <input
-              value={
-                form.secteur_activite
-              }
-              disabled
+              type="number"
+              name="anciennete"
+              value={form.anciennete}
+              onChange={handleChange}
             />
           </div>
 
           <div className="form-group">
             <label>
-              Ancienneté
+              Nature du contrat
             </label>
-            <input
-              value={
-                form.anciennete
-              }
-              disabled
-            />
-          </div>
 
-          <div className="form-group">
-            <label>
-              Contrat
-            </label>
-            <input
-              value={
-                form.type_contrat
-              }
-              disabled
-            />
+            <select
+              name="type_contrat"
+              value={form.type_contrat}
+              onChange={handleChange}
+            >
+              <option value="">
+                Choisir
+              </option>
+
+              <option value="CDI">
+                CDI
+              </option>
+
+              <option value="CDD">
+                CDD
+              </option>
+
+              <option value="FONCTIONNAIRE">
+                Fonctionnaire
+              </option>
+            </select>
           </div>
 
         </div>
@@ -268,13 +410,14 @@ function Scoring() {
 
           <div className="form-group">
             <label>
-              Salaire
+              Salaire mensuel
             </label>
+
             <input
-              value={
-                form.salaire
-              }
-              disabled
+              type="number"
+              name="salaire"
+              value={form.salaire}
+              onChange={handleChange}
             />
           </div>
 
@@ -282,32 +425,37 @@ function Scoring() {
             <label>
               Autres revenus
             </label>
+
             <input
-              value={
-                form.autres_revenus
-              }
-              disabled
+              type="number"
+              name="autres_revenus"
+              value={form.autres_revenus}
+              onChange={handleChange}
             />
           </div>
 
           <div className="form-group">
             <label>
-              Charges
+              Charges mensuelles
             </label>
+
             <input
-              value={
-                form.charges
-              }
-              disabled
+              type="number"
+              name="charges"
+              value={form.charges}
+              onChange={handleChange}
             />
           </div>
 
         </div>
 
+        <br />
+
         <button
           className="btn-primary"
+          type="submit"
         >
-          Calculer mon scoring
+          Enregistrer et calculer
         </button>
 
       </form>
@@ -327,16 +475,12 @@ function Scoring() {
           <p>
             Taux d'endettement :
             {" "}
-            {
-              resultat.taux_endettement
-            }
-            %
+            {resultat.taux_endettement}%
           </p>
 
           <h3
             className={
-              resultat.decision ===
-              "ACCEPTE"
+              resultat.decision === "ACCEPTE"
                 ? "accepted"
                 : "refused"
             }
