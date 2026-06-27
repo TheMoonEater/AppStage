@@ -1849,6 +1849,81 @@ button{
 
 
 
+.document-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:12px;
+
+    margin-bottom:10px;
+
+    border:1px solid #ddd;
+
+    border-radius:8px;
+
+    background:#fafafa;
+
+}
+
+.document-actions{
+
+    display:flex;
+
+    gap:10px;
+
+}
+
+.btn-download{
+
+    background:#426AB3;
+
+    color:white;
+
+    padding:8px 14px;
+
+    border-radius:6px;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+}
+
+.btn-download:hover{
+
+    background:#213368;
+
+}
+
+.btn-delete{
+
+    background:#f5845e;
+
+    color:white;
+
+    border:none;
+
+    padding:8px 14px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+}
+
+.btn-delete:hover{
+
+    background:#c0392b;
+
+}
+
+
 /* =========================
    CLIENT DETAILS
 ========================= */

@@ -109,6 +109,29 @@ function ClientDashboard() {
 
     };
 
+    const deleteDocument = async (id) => {
+
+      if (!window.confirm("Supprimer ce document ?"))
+        return;
+
+      try {
+
+        await api.delete(`documents/${id}/`);
+
+        alert("Document supprimé");
+
+        loadData();
+
+      } catch (error) {
+
+        console.log(error);
+
+        alert("Erreur");
+
+      }
+
+    };
+
     const save = async () => {
 
         try {
@@ -134,6 +157,14 @@ function ClientDashboard() {
 
   if (!client)
     return <h2>Chargement...</h2>;
+
+  const typesDocuments = {
+  CNI: "Carte d'identité",
+  PAIE: "Fiche de paie",
+  TRAVAIL: "Attestation de travail",
+  JUSTIFICATIF: "Justificatif",
+  AUTRE: "Autre",
+};
 
   return (
 
@@ -310,19 +341,40 @@ function ClientDashboard() {
 
             documents.map(doc => (
 
-              <p key={doc.id}>
+                <div
+                  key={doc.id}
+                  className="document-item"
+                >
 
-                📄
+                  <span>
+                    <strong>{typesDocuments[doc.type_document]}</strong>
+                    <br />
+                    {doc.fichier.split("/").pop()}
+                  </span>
 
-                {" "}
+                  <div className="document-actions">
 
-                {doc.fichier
-                  .split("/")
-                  .pop()}
+                    <a
+                      href={"http://127.0.0.1:8000" + doc.fichier}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="btn-download"
+                    >
+                      Télécharger
+                    </a>
 
-              </p>
+                    <button
+                      className="btn-delete"
+                      onClick={() => deleteDocument(doc.id)}
+                    >
+                      Supprimer
+                    </button>
 
-            ))
+                  </div>
+
+                </div>
+
+              ))
 
           )
 
