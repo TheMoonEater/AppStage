@@ -6,6 +6,8 @@ function ClientDashboard() {
   const [client, setClient] =
     useState(null);
 
+  const [form, setForm] = useState({});
+
   const [documents, setDocuments] =
     useState([]);
 
@@ -29,17 +31,27 @@ function ClientDashboard() {
         await api.get("clients/me/");
 
       setClient(clientRes.data);
+      setForm(clientRes.data);
 
       const docsRes =
         await api.get("documents/");
 
-      setDocuments(docsRes.data);
+      setDocuments(docsRes.data.results);
 
     } catch (error) {
 
       console.log(error);
 
     }
+
+  };
+
+  const handleChange = (e) => {
+
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
 
   };
 
@@ -54,6 +66,7 @@ function ClientDashboard() {
 
         return;
       }
+
 
       const formData =
         new FormData();
@@ -93,6 +106,30 @@ function ClientDashboard() {
 
       }
 
+
+    };
+
+    const save = async () => {
+
+        try {
+
+            await api.patch(
+                "clients/me/",
+                form
+            );
+
+            alert("Informations enregistrées");
+
+            loadData();
+
+        } catch (error) {
+
+            console.log(error);
+
+            alert("Erreur lors de l'enregistrement");
+
+        }
+
     };
 
   if (!client)
@@ -122,6 +159,12 @@ function ClientDashboard() {
           {client.prenom}
         </p>
 
+
+        <p>
+         Age : {client.age} ans
+        </p>
+
+
         <p>
           Email :
           {" "}
@@ -144,10 +187,9 @@ function ClientDashboard() {
           Mot de passe :
           ********
         </p>
+  </div>
 
-      </div>
-
-      <div className="dashboard-card">
+  <div className="dashboard-card">
 
         <h2>Identification</h2>
 
@@ -249,6 +291,7 @@ function ClientDashboard() {
 
       </div>
 
+
       <div className="dashboard-card">
 
         <h2>
@@ -343,6 +386,311 @@ function ClientDashboard() {
         </button>
 
       </div>
+
+
+        <div className="dashboard-card">
+
+        <h2>Modifier les informations</h2>
+
+        <h3>Mon Compte </h3>
+
+        <div className="form-group">
+
+        <label>
+          Nom :
+        </label>  
+
+        <input
+          type="text"
+          name="nom"
+          value={form.nom || ""}
+          onChange={handleChange}
+        />
+        </div>
+
+        <div className="form-group">
+
+        <label>
+          Prénom :
+        </label>    
+
+        <input
+          type="text"
+          name="prenom"
+          value={form.prenom || ""}
+          onChange={handleChange}
+        />  
+        </div>
+
+        <div className="form-group">
+
+        <label>
+          Email :
+        </label>  
+
+        <input
+          type="email"
+          name="email"
+          value={form.email || ""}
+          onChange={handleChange}
+        />
+        </div>
+
+        <div className="form-group">
+
+        <label>
+          Téléphone :
+        </label>  
+
+        <input
+          type="text"
+          name="telephone"
+          value={form.telephone || ""}
+          onChange={handleChange}
+        />
+        </div>
+
+        <div className="form-group">
+
+        <label>
+          Date de naissance :
+        </label>  
+
+        <input
+          type="date"
+          name="date_naissance"
+          value={form.date_naissance || ""}
+          onChange={handleChange}
+        />
+        </div>
+
+        <div className="form-group">
+
+        <label>
+          Mot de passe :
+        </label>
+
+        <input
+          type="password"
+          name="password"
+          value={form.password || ""}
+          onChange={handleChange}
+        />
+        </div>
+
+        <h3>Identification  </h3>
+
+        <div className="form-group">
+          <label>
+          Situation familiale :
+        </label>
+
+        <select
+              name="situation_familiale"
+              value={form.situation_familiale || ""}
+              onChange={handleChange}
+          >
+
+          <option value="CELIBATAIRE">Célibataire</option>
+
+          <option value="MARIE">Marié</option>
+
+          <option value="DIVORCE">Divorcé</option>
+
+          </select>
+
+          </div>
+
+          <div className="form-group">
+          <label>
+          Personnes à charge :
+        </label>
+
+          <input
+            type="number"
+            name="nombre_personnes_charge"
+            value={form.nombre_personnes_charge || ""}
+            onChange={handleChange}
+            />
+
+            </div>
+
+            <div className="form-group">
+          <label>
+          Habitation :
+        </label>
+
+            <select
+            name="habitation"
+            value={form.habitation || ""}
+            onChange={handleChange}
+            >
+
+            <option value="Proprietaire">Propriétaire</option>
+
+            <option value="Locataire">Locataire</option>
+
+            <option value="Familiale">Familiale</option>
+
+            </select>
+
+            </div>
+
+            <div className="form-group">
+          <label>
+          Niveau instruition :
+        </label>
+
+            <select
+              name="niveau_instruction"
+              value={form.niveau_instruction || ""}
+              onChange={handleChange}
+              >
+
+              <option value="Primaire">Primaire</option>
+
+              <option value="Secondaire">Secondaire</option>
+
+              <option value="Universitaire">Universitaire</option>
+
+              <option value="Master">Master</option>
+
+              <option value="Doctorat">Doctorat</option>
+
+              </select>
+
+              </div>
+
+
+          <h3>Situation professionnelle</h3>
+
+          <div className="form-group">
+          <label>
+          Secteur d'activité :
+        </label>
+
+            <select
+              name="secteur_activite"
+              value={form.secteur_activite || ""}
+              onChange={handleChange}
+              >
+
+              <option value="Public">Public</option>
+
+              <option value="Privé">Privé</option>
+
+              </select>
+
+              </div>
+
+              <div className="form-group">
+          <label>
+          Type de contrat :
+        </label>
+
+            <select
+              name="type_contrat"
+              value={form.type_contrat || ""}
+              onChange={handleChange}
+              >
+
+              <option value="CDI">CDI</option>
+
+              <option value="CDD">CDD</option>
+
+              <option value="Fonctionnaire">Fonctionnaire</option>
+
+              </select>
+
+              </div>
+
+              <div className="form-group">
+          <label>
+          Ancienneté :
+        </label>
+
+          <input
+              type="number"
+              name="anciennete_annees"
+              value={form.anciennete_annees || ""}
+              onChange={handleChange}
+            />
+          </div>
+
+            
+
+            <div className="form-group">
+          <label>
+          Personnes à charge :
+        </label>
+
+          <input
+            type="number"
+            name="salaire_mensuel"
+            value={form.salaire_mensuel || ""}
+            onChange={handleChange}
+            />
+
+            </div>
+
+            <div className="form-group">
+          <label>
+          Autres revenus :
+        </label>
+
+          <input
+            type="number"
+            name="autres_revenus"
+            value={form.autres_revenus || ""}
+            onChange={handleChange}
+            />
+
+            </div>
+
+            <div className="form-group">
+          <label>
+          Charges mensuelles :
+        </label>
+
+          <input
+            type="number"
+            name="charges_mensuelles"
+            value={form.charges_mensuelles || ""}
+            onChange={handleChange}
+            />
+
+            </div>
+
+            <div className="form-group">
+          <label>
+          Crédits en cours :
+        </label>
+
+          <input
+            type="number"
+            name="credits_en_cours"
+            value={form.credits_en_cours || ""}
+            onChange={handleChange}
+            />
+
+            </div>
+          
+
+
+
+
+        <button
+          className="btn-primary"
+          onClick={save}
+        >
+          Enregistrer
+        </button>
+
+
+
+
+
+    </div>
 
     </div>
 

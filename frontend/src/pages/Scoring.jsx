@@ -3,6 +3,11 @@ import api from "../services/api";
 
 function Scoring() {
 
+  const role = localStorage.getItem("role");
+
+  const [clients, setClients] = useState([]);
+  const [selectedClient, setSelectedClient] = useState("");
+
   const [form, setForm] = useState({
 
     age: "",
@@ -37,11 +42,19 @@ function Scoring() {
 
   useEffect(() => {
 
-    loadClient();
+      if (role === "CLIENT") {
 
-  }, []);
+        loadClient();
 
-  const loadClient = async () => {
+      } else {
+
+        loadClients();
+
+      }
+
+    }, []);
+
+    const loadClient = async () => {
 
     try {
 
@@ -101,6 +114,89 @@ function Scoring() {
 
   };
 
+  const loadClients = async () => {
+
+      try {
+
+        const res = await api.get("clients/");
+
+        const data =
+          res.data.results || res.data;
+
+        setClients(data);
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+    };
+
+    const selectClient = async (clientId) => {
+
+      try {
+
+        setSelectedClient(clientId);
+
+        const res =
+          await api.get(
+            `clients/${clientId}/`
+          );
+
+        const client = res.data;
+
+        setForm({
+
+          age: client.age || "",
+
+          nombre_personnes_charge:
+            client.nombre_personnes_charge || "",
+
+          habitation:
+            client.habitation || "",
+
+          niveau_instruction:
+            client.niveau_instruction || "",
+
+          secteur_activite:
+            client.secteur_activite || "",
+
+          anciennete:
+            client.anciennete_annees || "",
+
+          type_contrat:
+            client.type_contrat || "",
+
+          salaire:
+            client.salaire_mensuel || "",
+
+          autres_revenus:
+            client.autres_revenus || "",
+
+          charges:
+            client.charges_mensuelles || "",
+
+          marie:
+            client.situation_familiale === "MARIE"
+              ? "oui"
+              : "non",
+
+          enfants:
+            client.nombre_personnes_charge || "",
+
+          apport: "0"
+
+        });
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+    };
+
   const handleChange = (e) => {
 
     setForm({
@@ -124,8 +220,14 @@ function Scoring() {
       // Sauvegarde Mon Dossier
       // =====================
 
+      const clientEndpoint =
+
+        role === "CLIENT"
+          ? "clients/me/"
+          : `clients/${selectedClient}/`;
+
       await api.patch(
-        "clients/me/",
+        clientEndpoint,
         {
           nombre_personnes_charge:
             form.nombre_personnes_charge,
@@ -200,7 +302,13 @@ function Scoring() {
               form.nombre_personnes_charge,
 
             apport:
-              form.apport
+              form.apport,
+
+            client_id:
+
+              role === "CLIENT"
+                ? null
+                : selectedClient
           }
         );
 
@@ -230,6 +338,51 @@ function Scoring() {
         Scoring Client
       </h1>
 
+      {role !== "CLIENT" && (
+
+          <div
+            style={{
+              marginBottom: "25px"
+            }}
+          >
+
+            <label>
+              Sélectionner un client
+            </label>
+
+            <select
+              value={selectedClient}
+              onChange={(e) =>
+                selectClient(e.target.value)
+              }
+              style={{
+                width: "100%",
+                padding: "12px",
+                marginTop: "10px"
+              }}
+            >
+
+              <option value="">
+                Choisir un client
+              </option>
+
+              {clients.map(client => (
+
+                <option
+                  key={client.id}
+                  value={client.id}
+                >
+                  {client.nom} {client.prenom}
+                </option>
+
+              ))}
+
+            </select>
+
+          </div>
+
+        )}
+
       <form
         className="scoring-card"
         onSubmit={handleSubmit}
@@ -245,8 +398,10 @@ function Scoring() {
             <label>Age</label>
 
             <input
+              type="number"
+              name="age"
               value={form.age}
-              disabled
+              onChange={handleChange}
             />
           </div>
 
@@ -469,7 +624,7 @@ function Scoring() {
           </h2>
 
           <div className="result-score">
-            {resultat.score}/100
+            {resultat.score}
           </div>
 
           <p>

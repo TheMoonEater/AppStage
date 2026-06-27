@@ -118,6 +118,12 @@ function ClientDetail() {
         </h2>
 
         <p>
+          Age :
+          {" "}
+          {client.age}
+        </p>
+
+        <p>
           Email :
           {" "}
           {client.email}

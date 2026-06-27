@@ -64,12 +64,18 @@ function Navbar() {
           Accueil
         </Link>
 
-        <Link
-          to="/cart"
-          onClick={closeMenu}
-        >
-          Panier
-        </Link>
+        {/* PANIER UNIQUEMENT CLIENT */}
+
+        {role === "CLIENT" && (
+
+          <Link
+            to="/cart"
+            onClick={closeMenu}
+          >
+            Panier
+          </Link>
+
+        )}
 
         <Link
           to="/scoring"
@@ -89,7 +95,12 @@ function Navbar() {
 
         )}
 
-        {["EMPLOYE", "RETAIL", "COMITE", "ADMIN"].includes(role) && (
+        {[
+          "EMPLOYE",
+          "RETAIL",
+          "COMITE",
+          "ADMIN"
+        ].includes(role) && (
 
           <>
             <Link
@@ -109,28 +120,30 @@ function Navbar() {
 
         )}
 
-        {["ADMIN", "RETAIL"].includes(role) && (
+        {[
+          "ADMIN",
+          "RETAIL"
+        ].includes(role) && (
 
-            <>
+          <>
 
-              <Link
-                to="/admin/products"
-                onClick={closeMenu}
-              >
-                Produits
-              </Link>
+            <Link
+              to="/admin/products"
+              onClick={closeMenu}
+            >
+              Produits
+            </Link>
 
-              <Link
-                to="/scoring-config"
-                onClick={closeMenu}
-              >
-                Paramètres scoring
-              </Link>
+            <Link
+              to="/scoring-config"
+              onClick={closeMenu}
+            >
+              Paramètres scoring
+            </Link>
 
-            </>
+          </>
 
         )}
-
 
         {role === "ADMIN" && (
 
