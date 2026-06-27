@@ -1,21 +1,49 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+
+import bg1 from "../assets/login/bg1.jpg";
+import bg2 from "../assets/login/bg2.jpg";
+import bg3 from "../assets/login/bg3.jpg";
+
 
 function Register() {
 
   const navigate = useNavigate();
 
+  const images = [
+    bg1,
+    bg2,
+    bg3
+  ];
+
+  const [currentImage, setCurrentImage] =
+    useState(0);
+
+  useEffect(() => {
+
+    const interval = setInterval(() => {
+
+      setCurrentImage((prev) =>
+        (prev + 1) % images.length
+      );
+
+    }, 10000);
+
+    return () => clearInterval(interval);
+
+  }, []);
+
   const [formData, setFormData] = useState({
 
-      nom: "",
-      prenom: "",
-      username: "",
-      email: "",
-      phone: "",
-      date_naissance: "",
-      numero_cni: "",
-      password: "",
-      confirmPassword: ""
+    nom: "",
+    prenom: "",
+    username: "",
+    email: "",
+    phone: "",
+    date_naissance: "",
+    numero_cni: "",
+    password: "",
+    confirmPassword: ""
 
   });
 
@@ -63,16 +91,16 @@ function Register() {
 
         body: JSON.stringify({
 
-            nom: formData.nom,
-            prenom: formData.prenom,
-            username: formData.username,
-            email: formData.email,
-            phone: formData.phone,
-            date_naissance: formData.date_naissance,
-            numero_cni: formData.numero_cni,
-            password: formData.password
+          nom: formData.nom,
+          prenom: formData.prenom,
+          username: formData.username,
+          email: formData.email,
+          phone: formData.phone,
+          date_naissance: formData.date_naissance,
+          numero_cni: formData.numero_cni,
+          password: formData.password
 
-          })
+        })
 
       }
 
@@ -103,9 +131,42 @@ function Register() {
 
   return (
 
-    <div className="login-page">
+    <div
+      className="login-page"
+      style={{
+        backgroundImage:
+          `url(${images[currentImage]})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        minHeight: "100vh",
+        transition:
+          "background-image 1.5s ease-in-out",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        position: "relative"
+      }}
+    >
 
-      <div className="login-card">
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "rgba(0,0,0,0.45)"
+        }}
+      />
+
+      <div
+        className="login-card"
+        style={{
+          position: "relative",
+          zIndex: 2,
+          maxWidth: "500px",
+          width: "100%"
+        }}
+      >
 
         <div className="login-logo">
 
@@ -187,6 +248,7 @@ function Register() {
 
           <button
             className="login-btn"
+            type="submit"
           >
             Créer le compte
           </button>
@@ -195,8 +257,8 @@ function Register() {
 
         <p
           style={{
-            marginTop:"20px",
-            textAlign:"center"
+            marginTop: "20px",
+            textAlign: "center"
           }}
         >
 
@@ -205,8 +267,8 @@ function Register() {
           <Link
             to="/"
             style={{
-              color:"#F2643B",
-              marginLeft:"5px"
+              color: "#F2643B",
+              marginLeft: "5px"
             }}
           >
             Se connecter

@@ -633,18 +633,12 @@ button{
 
 }
 
-.login-card{
-
-  background:white;
-
-  width:400px;
-
-  padding:40px;
-
-  border-radius:20px;
-
-  box-shadow:var(--shadow);
-
+.login-card {
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.92);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.25);
 }
 
 .login-card h2{
@@ -714,17 +708,11 @@ button{
 }
 
 .login-card {
-
-  width: 450px;
-
-  background: white;
-
-  padding: 50px;
-
-  border-radius: 25px;
-
-  box-shadow:
-    0 15px 40px rgba(0,0,0,0.2);
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.92);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.25);
 }
 
 .login-logo {
@@ -1850,4 +1838,93 @@ button{
     padding: 12px;
     border: 1px solid #ddd;
     border-radius: 10px;
+}
+
+
+
+
+
+
+/* =========================
+   CLIENT DETAILS
+========================= */
+
+.page-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 25px;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+
+.card h2 {
+  margin-bottom: 15px;
+  color: #426AB3;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.btn-primary {
+  background: #426AB3;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  opacity: .9;
+}
+
+
+.btn-secondary {
+  background: #426AB3;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.btn-secondary:hover {
+  background: #213368;
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.history-table th,
+.history-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+.history-table th {
+  background: #426AB3;
+  color: white;
+}
+
+.history-table tr:nth-child(even) {
+  background: #f8fafc;
 }

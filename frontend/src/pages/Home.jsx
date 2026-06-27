@@ -48,10 +48,10 @@ function Home() {
       });
 
   }, [
-      page,
-      search,
-      category,
-      ordering
+    page,
+    search,
+    category,
+    ordering
   ]);
 
   return (
@@ -62,7 +62,10 @@ function Home() {
 
       <Categories />
 
-      <div className="products-container">
+      <div
+        id="catalogue"
+        className="products-container"
+      >
 
         <h2 className="products-title">
           Produits disponibles

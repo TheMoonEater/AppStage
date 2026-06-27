@@ -1,5 +1,15 @@
 function Hero() {
 
+  const scrollToCatalogue = () => {
+
+    document
+      .getElementById("catalogue")
+      ?.scrollIntoView({
+        behavior: "smooth"
+      });
+
+  };
+
   return (
 
     <section className="hero">
@@ -15,7 +25,10 @@ function Hero() {
         via nos solutions de financement.
       </p>
 
-      <button>
+      <button
+        className="btn-primary"
+        onClick={scrollToCatalogue}
+      >
         Découvrir le catalogue
       </button>
 
