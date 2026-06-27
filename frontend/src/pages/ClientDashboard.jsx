@@ -495,7 +495,7 @@ function ClientDashboard() {
         </label>  
 
         <input
-          type="text"
+          type="number"
           name="telephone"
           value={form.telephone || ""}
           onChange={handleChange}
