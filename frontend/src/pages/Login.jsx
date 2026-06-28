@@ -31,7 +31,7 @@ function Login() {
         (prev + 1) % images.length
       );
 
-    }, 10000);
+    }, 1000);
 
     return () => clearInterval(interval);
 

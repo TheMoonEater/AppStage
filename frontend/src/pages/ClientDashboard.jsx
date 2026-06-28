@@ -174,6 +174,32 @@ function ClientDashboard() {
         Mon dossier
       </h1>
 
+     
+      <div className="status-card">
+
+        <h2>État de votre dossier</h2>
+
+        {client.statut === "VALIDE" && (
+          <span className="status-valid">
+            Validé par le comité
+          </span>
+        )}
+
+        {client.statut === "REFUSE" && (
+          <span className="status-refused">
+            Refusé
+          </span>
+        )}
+
+        {client.statut === "EN_ATTENTE" && (
+          <span className="status-pending">
+            En attente d'analyse
+          </span>
+        )}
+
+      </div>
+      
+
       <div className="dashboard-card">
 
         <h2>Mon Compte</h2>
