@@ -346,40 +346,38 @@ function Scoring() {
             }}
           >
 
-            <label>
-              Sélectionner un client
-            </label>
+           
 
-            <select
-              value={selectedClient}
-              onChange={(e) =>
-                selectClient(e.target.value)
-              }
-              style={{
-                width: "100%",
-                padding: "12px",
-                marginTop: "10px"
-              }}
-            >
+  <label className="client-selector-label">
+    Sélectionner un client
+  </label>
 
-              <option value="">
-                Choisir un client
-              </option>
+  <select
+    value={selectedClient}
+    onChange={(e) =>
+      selectClient(e.target.value)
+    }
+    className="client-select"
+  >
 
-              {clients.map(client => (
+    <option value="">
+      Choisir un client...
+    </option>
 
-                <option
-                  key={client.id}
-                  value={client.id}
-                >
-                  {client.nom} {client.prenom}
-                </option>
+    {clients.map(client => (
 
-              ))}
+      <option
+        key={client.id}
+        value={client.id}
+      >
+        {client.nom} {client.prenom}
+      </option>
 
-            </select>
+    ))}
 
-          </div>
+  </select>
+
+</div>
 
         )}
 

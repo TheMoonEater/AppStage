@@ -93,17 +93,26 @@ button{
 }
 
 .logout-btn{
-  background:#F2643B;
-  color:white;
+  background: linear-gradient(135deg, #a31616, #801515);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(163, 22, 22, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
 
-  border:none;
-  border-radius:8px;
-
-  padding:10px 18px;
-
-  cursor:pointer;
-
-  white-space:nowrap;
+.logout-btn:hover{
+     transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(163, 48, 22, 0.45);
+  background: linear-gradient(135deg, #c52222, #a31616);
 }
 
 .page-content{
@@ -172,20 +181,27 @@ button{
 
 .hero button{
 
-  background:var(--secondary);
+  background: linear-gradient(135deg, #164ca3, #213368);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(22, 31, 163, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 
-  color:white;
+}
 
-  border:none;
-
-  padding:15px 30px;
-
-  border-radius:10px;
-
-  font-size:16px;
-
-  font-weight:600;
-
+.hero button:hover{
+    transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(41, 22, 163, 0.45);
+  background: linear-gradient(135deg, #426AB3, #29467a);
 }
 
 /* =========================
@@ -304,18 +320,27 @@ button{
 
 .product-button{
 
-  display:inline-block;
+  background: linear-gradient(135deg, #164ca3, #213368);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(22, 31, 163, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 
-  background:var(--secondary);
+}
 
-  color:white;
-
-  padding:12px 20px;
-
-  border-radius:10px;
-
-  font-weight:600;
-
+.product-button:hover{
+    transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(41, 22, 163, 0.45);
+  background: linear-gradient(135deg, #426AB3, #29467a);
 }
 
 /* =========================
@@ -384,30 +409,53 @@ button{
 
 .btn-primary{
 
-  background:var(--primary);
-
-  color:white;
-
-  border:none;
-
-  padding:12px 25px;
-
-  border-radius:10px;
+  background: linear-gradient(135deg, #164ca3, #213368);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(22, 31, 163, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 
 }
 
+.btn-primary:hover{
+    transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(41, 22, 163, 0.45);
+  background: linear-gradient(135deg, #426AB3, #29467a);
+}
+
+
 .btn-secondary{
 
-  background:var(--secondary);
+  background: linear-gradient(135deg, #164ca3, #213368);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(22, 31, 163, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 
-  color:white;
+}
 
-  border:none;
-
-  padding:12px 25px;
-
-  border-radius:10px;
-
+.btn-secondary:hover{
+    transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(41, 22, 163, 0.45);
+  background: linear-gradient(135deg, #426AB3, #29467a);
 }
 
 /* =========================
@@ -667,20 +715,27 @@ button{
 
 .login-card button{
 
-  width:100%;
+  background: linear-gradient(135deg, #164ca3, #213368);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(22, 31, 163, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 
-  background:var(--secondary);
+}
 
-  color:white;
-
-  border:none;
-
-  padding:14px;
-
-  border-radius:10px;
-
-  font-weight:600;
-
+.login-card button:hover{
+    transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(41, 22, 163, 0.45);
+  background: linear-gradient(135deg, #426AB3, #29467a);
 }
 
 /* =========================
@@ -779,32 +834,27 @@ button{
 
 .login-btn {
 
-  width: 100%;
-
-  padding: 15px;
-
-  background: #F2643B;
-
+  background: linear-gradient(135deg, #164ca3, #213368);
   color: white;
-
   border: none;
-
-  border-radius: 12px;
-
-  font-size: 16px;
-
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 15px;
   font-weight: 600;
-
-  margin-top: 15px;
-
-  transition: 0.3s;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(22, 31, 163, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .login-btn:hover {
 
-  transform: translateY(-2px);
-
-  opacity: 0.95;
+   transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(41, 22, 163, 0.45);
+  background: linear-gradient(135deg, #426AB3, #29467a);
 }
 
 
@@ -963,51 +1013,55 @@ button{
 
 .btn-primary {
 
-  background: #F2643B;
-
+  background: linear-gradient(135deg, #164ca3, #213368);
   color: white;
-
   border: none;
-
-  padding: 14px 25px;
-
+  padding: 12px 24px;
   border-radius: 10px;
-
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
-
-  font-weight: bold;
-
-  transition: 0.3s;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(22, 31, 163, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 
 }
 
 .btn-primary:hover {
 
-  background: #da4f28;
+    transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(41, 22, 163, 0.45);
+  background: linear-gradient(135deg, #426AB3, #29467a);
 
 }
 
 .btn-secondary {
 
-  background: #426AB3;
-
+  background: linear-gradient(135deg, #164ca3, #213368);
   color: white;
-
   border: none;
-
-  padding: 14px 25px;
-
+  padding: 12px 24px;
   border-radius: 10px;
-
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
-
-  font-weight: bold;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(22, 31, 163, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 
 }
 
 .btn-secondary:hover {
 
-  background: #213368;
+     transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(41, 22, 163, 0.45);
+  background: linear-gradient(135deg, #426AB3, #29467a);
 
 }
 
@@ -1090,7 +1144,93 @@ button{
 }
 
 
+/* Carte */
 
+.client-selector{
+
+    background:#ffffff;
+
+    padding:20px;
+
+    border-radius:15px;
+
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+
+    margin-bottom:30px;
+
+}
+
+/* Label */
+
+.client-selector-label{
+
+    display:block;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    color:#1f2937;
+
+    margin-bottom:12px;
+
+}
+
+/* Select */
+
+.client-select{
+
+    width:100%;
+
+    padding:14px 18px;
+
+    border:2px solid #dbe3ec;
+
+    border-radius:10px;
+
+    font-size:15px;
+
+    background:#f8fafc;
+
+    color:#374151;
+
+    outline:none;
+
+    cursor:pointer;
+
+    transition:all .25s ease;
+
+}
+
+/* Hover */
+
+.client-select:hover{
+
+    border-color:#0057b8;
+
+    background:white;
+
+}
+
+/* Focus */
+
+.client-select:focus{
+
+    border-color:#0057b8;
+
+    background:white;
+
+    box-shadow:0 0 0 4px rgba(0,87,184,.15);
+
+}
+
+/* Options */
+
+.client-select option{
+
+    padding:10px;
+
+}
 
 
 
@@ -1149,24 +1289,27 @@ button{
 
 .pagination button {
 
-  background: #426AB3;
-
+  background: linear-gradient(135deg, #164ca3, #213368);
   color: white;
-
   border: none;
-
-  padding: 10px 18px;
-
-  border-radius: 8px;
-
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(22, 31, 163, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 
 }
 
-.pagination button:hover {
-
-  background: #213368;
-
+.pagination button:hover{
+    transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(41, 22, 163, 0.45);
+  background: linear-gradient(135deg, #426AB3, #29467a);
 }
 
 .pagination button:disabled {
@@ -1255,9 +1398,11 @@ button{
     font-size:14px;
   }
 
-  .logout-btn{
+  .logout-btn:hover{
 
-    width:100%;
+       transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(41, 22, 163, 0.45);
+  background: linear-gradient(135deg, #426AB3, #29467a);
   }
 
   /* HERO */
@@ -1315,7 +1460,27 @@ button{
   .btn-primary,
   .btn-secondary{
 
-    width:100%;
+     background: linear-gradient(135deg, #164ca3, #213368);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(22, 31, 163, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  }
+
+  .btn-primary:hover,
+  .btn-secondary:hover{
+      transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(41, 22, 163, 0.45);
+  background: linear-gradient(135deg, #426AB3, #29467a);
   }
 
   /* LOGIN */
@@ -1538,7 +1703,7 @@ button{
     padding:10px;
   }
 
-  .logout-btn{
+  .logout-btn:hover{
 
     width:100%;
   }
@@ -1560,22 +1725,27 @@ button{
 
 .btn-danger {
 
-  background: #dc3545;
-
+  background: linear-gradient(135deg, #a31616, #801515);
   color: white;
-
   border: none;
-
-  padding: 10px 15px;
-
-  border-radius: 8px;
-
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(163, 22, 22, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .btn-danger:hover {
 
-  opacity: .85;
+    transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(163, 48, 22, 0.45);
+  background: linear-gradient(135deg, #c52222, #a31616);
 }
 
 
@@ -1710,19 +1880,26 @@ button{
 }
 
 .product-form button {
-  grid-column: span 2;
-  background: #0ea5e9;
+  background: linear-gradient(135deg, #164ca3, #213368);
   color: white;
   border: none;
-  padding: 14px;
+  padding: 12px 24px;
   border-radius: 10px;
-  cursor: pointer;
+  font-size: 15px;
   font-weight: 600;
-  transition: .3s;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(22, 31, 163, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
-.product-form button:hover {
-  background: #0284c7;
+.product-form button:hover{
+    transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(41, 22, 163, 0.45);
+  background: linear-gradient(135deg, #426AB3, #29467a);
 }
 
 
@@ -1842,9 +2019,26 @@ button{
 
 
 .save-button {
-  display: flex;
+  background: linear-gradient(135deg, #164ca3, #213368);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(22, 31, 163, 0.3);
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-  margin: 30px 0;
+  gap: 8px;
+}
+
+.save-button:hover{
+    transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(41, 22, 163, 0.45);
+  background: linear-gradient(135deg, #426AB3, #29467a);
 }
 
 
@@ -1879,47 +2073,55 @@ button{
 
 .btn-download{
 
-    background:#426AB3;
-
-    color:white;
-
-    padding:8px 14px;
-
-    border-radius:6px;
-
-    text-decoration:none;
-
-    font-weight:bold;
+  background: linear-gradient(135deg, #164ca3, #213368);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(22, 34, 163, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 
 }
 
 .btn-download:hover{
 
-    background:#213368;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(22, 27, 163, 0.45);
+  background: linear-gradient(135deg, #426AB3, #29467a);
 
 }
 
 .btn-delete{
 
-    background:#f5845e;
-
-    color:white;
-
-    border:none;
-
-    padding:8px 14px;
-
-    border-radius:6px;
-
-    cursor:pointer;
-
-    font-weight:bold;
+  background: linear-gradient(135deg, #a31616, #801515);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(163, 22, 22, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 
 }
 
 .btn-delete:hover{
 
-    background:#c0392b;
+      transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(163, 48, 22, 0.45);
+  background: linear-gradient(135deg, #c52222, #a31616);
 
 }
 
@@ -1959,31 +2161,50 @@ table td {
 }
 
 .btn-primary {
-  background: #426AB3;
+  background: linear-gradient(135deg, #164ca3, #213368);
   color: white;
   border: none;
-  padding: 10px 18px;
-  border-radius: 8px;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(22, 31, 163, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .btn-primary:hover {
-  opacity: .9;
+   transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(41, 22, 163, 0.45);
+  background: linear-gradient(135deg, #426AB3, #29467a);
 }
 
 
 .btn-secondary {
-  background: #426AB3;
+  background: linear-gradient(135deg, #164ca3, #213368);
   color: white;
   border: none;
-  padding: 10px 16px;
-  border-radius: 8px;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
-  margin-bottom: 20px;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(22, 31, 163, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .btn-secondary:hover {
-  background: #213368;
+    transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(41, 22, 163, 0.45);
+  background: linear-gradient(135deg, #426AB3, #29467a);
 }
 
 .history-table {
@@ -2159,3 +2380,110 @@ table td {
 
 
 
+
+
+
+
+/*==============================
+ GESTION CLIENT POUR COMITÉ
+ ======================*/
+
+
+ .btn-success{
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(22, 163, 74, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-success:hover{
+    transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(22, 163, 74, 0.45);
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.btn-danger{
+  background: linear-gradient(135deg, #a31616, #801515);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(163, 22, 22, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-danger:hover{
+     transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(163, 48, 22, 0.45);
+  background: linear-gradient(135deg, #c52222, #a31616);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.status-valid{
+    background:#d4edda;
+    color:#155724;
+    padding:6px 12px;
+    border-radius:20px;
+    font-weight:600;
+}
+
+.status-refused{
+    background:#f8d7da;
+    color:#721c24;
+    padding:6px 12px;
+    border-radius:20px;
+    font-weight:600;
+}
+
+.status-pending{
+    background:#fff3cd;
+    color:#856404;
+    padding:6px 12px;
+    border-radius:20px;
+    font-weight:600;
+}

@@ -82,6 +82,8 @@ function ClientDetail() {
 
   };
 
+
+
   if (!dossier) {
 
     return <h2>Chargement...</h2>;
@@ -89,6 +91,33 @@ function ClientDetail() {
   }
 
   const client = dossier.client;
+
+  const role = localStorage.getItem("role");
+
+  const decision = async (statut) => {
+
+    try {
+
+      await api.patch(
+        `clients/${id}/valider/`,
+        {
+          decision: statut
+        }
+      );
+
+      alert("Décision enregistrée");
+
+      loadDossier();
+
+    } catch (error) {
+
+      console.log(error);
+
+      alert("Erreur");
+
+    }
+
+  };
 
   return (
 
@@ -116,6 +145,10 @@ function ClientDetail() {
         <h2>
           {client.prenom} {client.nom}
         </h2>
+
+        <p>
+          <strong>Statut :</strong> {client.statut}
+        </p>
 
         <p>
           Age :
@@ -462,8 +495,8 @@ function ClientDetail() {
 
                     {
                       doc.valide
-                        ? "✅ Validé"
-                        : "⏳ En attente"
+                        ? " Validé"
+                        : " En attente"
                     }
 
                   </span>
@@ -500,6 +533,37 @@ function ClientDetail() {
         </button>
 
       </div>
+
+      {
+        role === "COMITE" && (
+
+            <div
+              style={{
+                display: "flex",
+                gap: "15px",
+                justifyContent: "center",
+                marginTop: "25px"
+              }}
+            >
+
+              <button
+                className="btn-success"
+                onClick={() => decision("VALIDE")}
+              >
+                Valider
+              </button>
+
+              <button
+                className="btn-danger"
+                onClick={() => decision("REFUSE")}
+              >
+                Refuser
+              </button>
+
+            </div>
+
+          )
+        }
 
     </div>
 

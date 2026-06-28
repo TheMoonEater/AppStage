@@ -42,6 +42,8 @@ function Clients() {
 
               <th>Contrat</th>
 
+              <th>État du dossier</th>
+
               <th>Actions</th>
 
             </tr>
@@ -65,6 +67,32 @@ function Clients() {
                 <td>
                   {client.type_contrat}
                 </td>
+
+                <td>
+
+                    {
+                      client.statut === "VALIDE" ? (
+
+                        <span className="status-valid">
+                          Validé
+                        </span>
+
+                      ) : client.statut === "REFUSE" ? (
+
+                        <span className="status-refused">
+                          Refusé
+                        </span>
+
+                      ) : (
+
+                        <span className="status-pending">
+                          En attente
+                        </span>
+
+                      )
+                    }
+
+                  </td>
 
                 <td>
 
